@@ -11,68 +11,19 @@ void PrintArr(double** array, int s);
 double Det(double** array, int s, int col = 0);
 void Minor(double** x, double** t, int s, int col, int row);
 double Gauss(double** x, int s);
+void ShowEx();
+
+int waay;
 
 int main( int argc, char *argv[] )
 {
     const string RAND = "random", NR = "nature row" , Enter = "enter";
     const int N = 10;
-    int size, column, waay, time;
+    int size, column, time;
     string way;
     bool method = 0;
 
-    double pA2[2][2] = { 
-        { 1, 3 }, 
-        { 7, 9 } };
-    double** p2 = new double* [2];
-    for (int i = 0; i < 2; i++)
-    {
-        p2[i] = new double[2];
-        for (int j = 0; j < 2; j++)
-        {
-            p2[i][j] = pA2[i][j];
-        }
-    }
-    double pB3[3][3] = { 
-        { 1, -2, 3 },
-        { 0, 7, 4 },
-        { 5, 3, -3 } }; // -178
-    int q = 3;
-    double** p3 = new double* [q];
-    for (int i = 0; i < q; i++)
-    {
-        p3[i] = new double[q];
-        for (int j = 0; j < q; j++)
-        {
-            (p3[i][j]) = pB3[i][j];
-        }
-    }
-     
-    cout << "Show example (1 or 0): ";
-    cin >> waay;
-    cout << endl;
-    
-    if (waay == 1) {
-        int length = 2;
-        for (int i = 0; i < length; i++)
-        {
-            for (int j = 0; j < length; j++)
-            {
-                cout << setw(2) << p2[i][j] << ' ';
-            }
-            cout << endl;
-        }
-           cout << "Determinant (2*2) = " << Det(p2, 2) << endl;
-        for (int i = 0; i < q; i++)
-        {
-            for (int j = 0; j < q; j++)
-            {
-                cout << setw(2) << p3[i][j] << ' ';
-            }
-            cout << endl;
-        }
-        cout << "Determinant (3*3) = " << Det(p3, q) << endl;
-        cout << "Determinant(Gauss) = " << Gauss(p3, q) << endl;
-    }
+    ShowEx();
 
     cout << "\nEnter the size of the array(from 1 to 10): ";
     cin >> size;
@@ -134,7 +85,7 @@ int main( int argc, char *argv[] )
             }
         }
     }
-
+    
     /// Столбец 
     cout << "Enter the decomposition column: " << endl;
     cin >> column;
@@ -148,14 +99,16 @@ int main( int argc, char *argv[] )
     PrintArr(arr, size);
     
     time = clock();
+    column = time;
     cout << time << endl;
     cout << "Determinant (recurs) = " << Det(arr, size, column) << endl;
     time = clock();
-    cout << time << endl;
+    cout << "Working time of the function: " << " "<< column <<" - "<< time<<" = "  << column - time << endl;
+    column = time;
     
     cout << "Determinant (Gauss) = " << Gauss(arr, size) << endl;
     time = clock();
-    cout << time << endl;
+    cout << "Working time of the function: " << " " << column << " - " << time << " = " << column - time << endl;
     PrintArr(arr, size);
 
     /// Удаление массива
@@ -164,6 +117,62 @@ int main( int argc, char *argv[] )
     }
     delete[] arr;
     return 0;
+}
+
+void ShowEx() {
+    double pA2[2][2] = {
+        { 1, 3 },
+        { 7, 9 } };
+    double** p2 = new double* [2];
+    for (int i = 0; i < 2; i++)
+    {
+        p2[i] = new double[2];
+        for (int j = 0; j < 2; j++)
+        {
+            p2[i][j] = pA2[i][j];
+        }
+    }
+    double pB3[3][3] = {
+        { 1, -2, 3 },
+        { 0, 7, 4 },
+        { 5, 3, -3 } }; // -178
+    int q = 3;
+    double** p3 = new double* [q];
+    for (int i = 0; i < q; i++)
+    {
+        p3[i] = new double[q];
+        for (int j = 0; j < q; j++)
+        {
+            (p3[i][j]) = pB3[i][j];
+        }
+    }
+
+    cout << "Show example (1 or 0): ";
+    cin >> waay;
+    cout << endl;
+
+    if (waay == 1) {
+        int length = 2;
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < length; j++)
+            {
+                cout << setw(2) << p2[i][j] << ' ';
+            }
+            cout << endl;
+        }
+        cout << "Determinant (2*2) = " << Det(p2, 2) << endl;
+        for (int i = 0; i < q; i++)
+        {
+            for (int j = 0; j < q; j++)
+            {
+                cout << setw(2) << p3[i][j] << ' ';
+            }
+            cout << endl;
+        }
+        cout << "Determinant (3*3) = " << Det(p3, q) << endl;
+        cout << "Determinant(Gauss) = " << Gauss(p3, q) << endl;
+    }
 }
 
 double Det(double** x, int s, int col) {
